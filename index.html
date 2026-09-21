@@ -1,0 +1,412 @@
+
+<style>
+    /* ================================
+       SITE VISUAL IDENTITY
+    ================================= */
+
+    :root {
+        --ink: #142238;
+        --muted: #6d7687;
+        --line: #dce3ec;
+        --primary: #2466ae;
+        --primary-dark: #153962;
+        --accent: #43a867;
+
+        --display: "Cormorant Garamond", Georgia, serif;
+        --sans: "Manrope", Arial, sans-serif;
+    }
+
+    /* Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+
+    /* ================================
+       FORM
+    ================================= */
+
+    #submitForm {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        font-family: var(--sans);
+    }
+
+
+    /* ================================
+       FIELDS
+    ================================= */
+
+    #submitForm .form-group {
+        margin-bottom: 18px;
+    }
+
+    #submitForm label {
+        display: block;
+        margin-bottom: 8px;
+
+        color: var(--ink);
+
+        font-family: var(--sans);
+        font-size: 11px;
+        font-weight: 800;
+
+        text-transform: uppercase;
+        letter-spacing: .02em;
+    }
+
+
+    #submitForm input {
+        width: 100%;
+        height: 55px;
+
+        padding: 0 16px;
+
+        border: 1px solid var(--line);
+        border-radius: 5px;
+
+        background: #fff;
+        color: var(--ink);
+
+        font-family: var(--sans);
+        font-size: 14px;
+
+        outline: none;
+
+        transition:
+            border-color .2s,
+            box-shadow .2s;
+    }
+
+
+    #submitForm input::placeholder {
+        color: #9aa3b1;
+    }
+
+
+    #submitForm input:focus {
+        border-color: var(--primary);
+
+        box-shadow:
+            0 0 0 3px rgba(36, 102, 174, .10);
+    }
+
+
+    /* ================================
+       SUBMIT BUTTON
+    ================================= */
+
+    #submitButton {
+        width: 100%;
+
+        min-height: 56px;
+
+        padding: 0 28px;
+
+        margin-top: 6px;
+
+        border: none;
+        border-radius: 5px;
+
+        background: var(--primary);
+
+        color: #fff;
+
+        font-family: var(--sans);
+        font-size: 12px;
+        font-weight: 800;
+
+        letter-spacing: .01em;
+
+        cursor: pointer;
+
+        box-shadow:
+            0 12px 30px rgba(12, 32, 56, .18);
+
+        transition:
+            transform .2s,
+            background .2s,
+            opacity .2s;
+    }
+
+
+    #submitButton:hover {
+        background: #1d5796;
+        transform: translateY(-2px);
+    }
+
+
+    #submitButton:active {
+        transform: translateY(0);
+    }
+
+
+    #submitButton:disabled {
+        opacity: .65;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+
+    /* ================================
+       ERROR
+    ================================= */
+
+    #errorMessage {
+        display: none;
+
+        margin: 12px 0;
+
+        padding: 12px 14px;
+
+        border-left: 2px solid #c94c4c;
+
+        background: #fff6f6;
+
+        color: #a33a37;
+
+        font-family: var(--sans);
+        font-size: 11px;
+        line-height: 1.6;
+    }
+
+
+    /* ================================
+       OPTIONAL SMALL NOTE
+    ================================= */
+
+    .form-note {
+        margin-top: 12px;
+
+        color: var(--muted);
+
+        font-family: var(--sans);
+        font-size: 10px;
+
+        line-height: 1.6;
+        text-align: center;
+    }
+
+
+    @media (max-width: 600px) {
+
+        #submitForm {
+            max-width: 100%;
+        }
+
+        #submitForm input {
+            height: 53px;
+        }
+
+        #submitButton {
+            min-height: 54px;
+        }
+    }
+</style>
+
+
+<form id="submitForm">
+
+    <div class="form-group">
+
+        <label for="fullName">
+            Full Name
+        </label>
+
+        <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            placeholder="Enter your full name"
+            autocomplete="name"
+            required
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="phoneNumber">
+            Phone Number
+        </label>
+
+        <input
+            type="tel"
+            id="phoneNumber"
+            name="phoneNumber"
+            placeholder="Enter your phone number"
+            autocomplete="tel"
+            inputmode="tel"
+            required
+        >
+
+    </div>
+
+
+    <div id="errorMessage"></div>
+
+
+    <button
+        type="submit"
+        id="submitButton"
+    >
+        CONTINUE TO REGISTRATION
+    </button>
+
+
+    <div class="form-note">
+        Your information is used only for registration.
+    </div>
+
+</form>
+
+
+<script>
+
+    /* ================================
+       SUPABASE
+    ================================= */
+
+    const SUPABASE_URL =
+        "https://ffxrhdygmgprttvjhtih.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmeHJoZHlnbWdwcnR0dmpodGloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5NTIxNTksImV4cCI6MjEwNTUyODE1OX0.uXKDbYvPzLETGnjLEvep3HHVU4ymbkUy8eTJpg6sPaE";
+
+
+    /* ================================
+       REDIRECT
+    ================================= */
+
+    const REDIRECT_URL =
+        "https://buy.stripe.com/8x29ASdKz46u0lo1s8bZe02";
+
+
+    /* ================================
+       ELEMENTS
+    ================================= */
+
+    const form =
+        document.getElementById("submitForm");
+
+    const submitButton =
+        document.getElementById("submitButton");
+
+    const errorMessage =
+        document.getElementById("errorMessage");
+
+
+    /* ================================
+       SUBMIT
+    ================================= */
+
+    form.addEventListener("submit", async function (e) {
+
+        e.preventDefault();
+
+        errorMessage.style.display = "none";
+
+
+        const fullName =
+            document
+                .getElementById("fullName")
+                .value
+                .trim();
+
+
+        const phoneNumber =
+            document
+                .getElementById("phoneNumber")
+                .value
+                .trim();
+
+
+        if (!fullName || !phoneNumber) {
+
+            errorMessage.textContent =
+                "Please fill in all fields.";
+
+            errorMessage.style.display =
+                "block";
+
+            return;
+        }
+
+
+        submitButton.disabled = true;
+
+        submitButton.textContent =
+            "SUBMITTING...";
+
+
+        try {
+
+            const response = await fetch(
+                `${SUPABASE_URL}/rest/v1/submit`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json",
+
+                        "apikey":
+                            SUPABASE_ANON_KEY,
+
+                        "Authorization":
+                            `Bearer ${SUPABASE_ANON_KEY}`,
+
+                        "Prefer":
+                            "return=minimal"
+                    },
+
+                    body: JSON.stringify({
+                        "Full_Name": fullName,
+                        "Phone_Number": phoneNumber
+                    })
+                }
+            );
+
+
+            if (!response.ok) {
+
+                const error =
+                    await response.text();
+
+                console.error(
+                    "Supabase error:",
+                    error
+                );
+
+                throw new Error(
+                    "Submission failed"
+                );
+            }
+
+
+            /* Redirect after successful save */
+
+            window.location.href =
+                REDIRECT_URL;
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            errorMessage.textContent =
+                "Something went wrong. Please try again.";
+
+            errorMessage.style.display =
+                "block";
+
+            submitButton.disabled =
+                false;
+
+            submitButton.textContent =
+                "CONTINUE TO REGISTRATION";
+        }
+
+    });
+
+</script>
+
