@@ -23,6 +23,8 @@
     html, body {
         margin: 0;
         min-height: 100vh;
+        width: 100%;
+        overflow-x: hidden;
     }
 
     body {
@@ -45,6 +47,7 @@
     #submitForm {
         width: min(100%, 500px);
         max-width: 500px;
+        min-width: 0;
         margin: 0;
         padding: 0;
         font-family: var(--sans);
@@ -76,6 +79,7 @@
 
     #submitForm input {
         width: 100%;
+        min-width: 0;
         height: 55px;
 
         padding: 0 16px;
@@ -210,7 +214,7 @@
     @media (max-width: 600px) {
 
         body {
-            padding: 18px 9px;
+            padding: 16px 12px;
             background: #ffffff;
         }
 
@@ -226,28 +230,30 @@
         }
 
         #submitForm label {
-            font-size: 20px;
-            margin-bottom: 8px;
+            font-size: 16px;
+            margin-bottom: 7px;
         }
 
         #submitForm input {
-            height: 116px;
-            padding: 0 20px;
-            font-size: 32px;
+            height: 56px;
+            padding: 0 16px;
+            font-size: 16px;
             border-radius: 8px;
         }
 
         #submitButton {
-            min-height: 116px;
-            font-size: 24px;
-            letter-spacing: .04em;
-            padding: 0 24px;
+            min-height: 56px;
+            font-size: 15px;
+            letter-spacing: .02em;
+            padding: 0 16px;
+            white-space: normal;
+            overflow-wrap: anywhere;
             border-radius: 8px;
             box-shadow: 0 14px 28px rgba(12, 32, 56, .18);
         }
 
         .form-note {
-            font-size: 18px;
+            font-size: 13px;
             line-height: 1.5;
             margin-top: 14px;
         }
