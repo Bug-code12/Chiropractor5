@@ -16,6 +16,24 @@
         --sans: "Manrope", Arial, sans-serif;
     }
 
+    * {
+        box-sizing: border-box;
+    }
+
+    html, body {
+        margin: 0;
+        min-height: 100vh;
+    }
+
+    body {
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+        background: #ffffff;
+    }
+
     /* Fonts */
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 
@@ -25,9 +43,10 @@
     ================================= */
 
     #submitForm {
-        width: 100%;
+        width: min(100%, 500px);
         max-width: 500px;
-        margin: 0 auto;
+        margin: 0;
+        padding: 0;
         font-family: var(--sans);
     }
 
@@ -68,7 +87,8 @@
         color: var(--ink);
 
         font-family: var(--sans);
-        font-size: 14px;
+        font-size: 16px;
+        line-height: 1.4;
 
         outline: none;
 
@@ -189,16 +209,47 @@
 
     @media (max-width: 600px) {
 
+        body {
+            padding: 18px 9px;
+            background: #ffffff;
+        }
+
         #submitForm {
-            max-width: 100%;
+            width: 100%;
+            max-width: none;
+            padding: 10px 0;
+            margin: auto;
+        }
+
+        #submitForm .form-group {
+            margin-bottom: 18px;
+        }
+
+        #submitForm label {
+            font-size: 20px;
+            margin-bottom: 8px;
         }
 
         #submitForm input {
-            height: 53px;
+            height: 116px;
+            padding: 0 20px;
+            font-size: 32px;
+            border-radius: 8px;
         }
 
         #submitButton {
-            min-height: 54px;
+            min-height: 116px;
+            font-size: 24px;
+            letter-spacing: .04em;
+            padding: 0 24px;
+            border-radius: 8px;
+            box-shadow: 0 14px 28px rgba(12, 32, 56, .18);
+        }
+
+        .form-note {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-top: 14px;
         }
     }
 </style>
