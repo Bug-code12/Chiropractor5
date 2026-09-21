@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
     /* ================================
@@ -23,8 +24,6 @@
     html, body {
         margin: 0;
         min-height: 100vh;
-        width: 100%;
-        overflow-x: hidden;
     }
 
     body {
@@ -47,7 +46,6 @@
     #submitForm {
         width: min(100%, 500px);
         max-width: 500px;
-        min-width: 0;
         margin: 0;
         padding: 0;
         font-family: var(--sans);
@@ -79,7 +77,6 @@
 
     #submitForm input {
         width: 100%;
-        min-width: 0;
         height: 55px;
 
         padding: 0 16px;
@@ -214,15 +211,17 @@
     @media (max-width: 600px) {
 
         body {
-            padding: 16px 12px;
+            display: block;
+            min-height: 0;
+            padding: 0;
             background: #ffffff;
         }
 
         #submitForm {
-            width: 100%;
+            width: 100vw;
             max-width: none;
-            padding: 10px 0;
-            margin: auto;
+            padding: 16px;
+            margin: 0;
         }
 
         #submitForm .form-group {
@@ -246,8 +245,6 @@
             font-size: 15px;
             letter-spacing: .02em;
             padding: 0 16px;
-            white-space: normal;
-            overflow-wrap: anywhere;
             border-radius: 8px;
             box-shadow: 0 14px 28px rgba(12, 32, 56, .18);
         }
