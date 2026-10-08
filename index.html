@@ -297,6 +297,24 @@
     </div>
 
 
+    <div class="form-group">
+
+        <label for="email">
+            Email
+        </label>
+
+        <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            autocomplete="email"
+            required
+        >
+
+    </div>
+
+
     <div id="errorMessage"></div>
 
 
@@ -374,8 +392,13 @@
                 .value
                 .trim();
 
+        const email =
+            document
+                .getElementById("email")
+                .value
+                .trim();
 
-        if (!fullName || !phoneNumber) {
+        if (!fullName || !phoneNumber || !email) {
 
             errorMessage.textContent =
                 "Please fill in all fields.";
@@ -415,7 +438,8 @@
 
                     body: JSON.stringify({
                         "Full_Name": fullName,
-                        "Phone_Number": phoneNumber
+                        "Phone_Number": phoneNumber,
+                        "email": email
                     })
                 }
             );
@@ -463,4 +487,3 @@
     });
 
 </script>
-
